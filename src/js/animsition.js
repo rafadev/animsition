@@ -112,27 +112,6 @@
       return support;
     },
 
-    animationCheck : function(data, stateClass, stateIn){
-      var $this = $(this);
-      var options = $this.data(namespace).options;
-      var dataType = typeof data;
-      var dataDuration = !stateClass && dataType === "number";
-      var dataClass = stateClass && dataType === "string" && data.length > 0;
-
-      if(dataDuration || dataClass){
-        data = data;
-      } else if(stateClass && stateIn) {
-        data = options.inClass;
-      } else if(!stateClass && stateIn) {
-        data = options.inDuration;
-      } else if(stateClass && !stateIn) {
-        data = options.outClass;
-      } else if(!stateClass && !stateIn) {
-        data = options.outDuration;
-      }
-      return data;
-    },
-
     in: function(){
       var _this = this;
       var $this = $(this);
