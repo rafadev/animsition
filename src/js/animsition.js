@@ -112,28 +112,43 @@
       return support;
     },
 
-    in: function(){
+    in: function(index,options){
       var _this = this;
       var $this = $(this);
-      var options = $this.data(namespace).options;
-      var thisInDuration = $this.data('animsition-in-duration');
-      var thisInClass = $this.data('animsition-in');
-      var inDuration = methods.animationCheck.call(_this,thisInDuration,false,true);
-      var inClass = methods.animationCheck.call(_this,thisInClass,true,true);
+      var data = $this.data(namespace);
 
-      if(options.loading) {
-        methods.removeLoading.call(_this);
-      }
+      if(!data) return;
 
-      $this
-        .trigger('animsition.start')
-        .css({ 'animation-duration' : inDuration + 's' })
-        .addClass(inClass)
-        .animateCallback(function(){
+      var isInClass = $this.data('animsition-in-class');
+      var isInDuration = $this.data('animsition-in-duration');
+
+      options = $.extend(data.options,{
+        inClass: isInClass,
+        inDuration: isInDuration
+      }, options);
+
+      if(options.loading) methods.removeLoading.call(_this);
+
+      return $this
+        .trigger('animsition.inStart')
+        .css({
+          'animation-duration' : options.inDuration + 's',
+        })
+        .addClass(options.inClass)
+        .animsitionCallback(function(){
           $this
-            .removeClass(inClass)
-            .css({ 'opacity' : 1 })
-            .trigger('animsition.end');
+            .removeClass(options.inClass)
+            .css({
+              'opacity' : 1,
+            })
+            .trigger('animsition.inEnd');
+
+          methods.counts.in.push(options.inClass);
+
+          // last callback
+          if(methods.counts.init.length === methods.counts.in.length){
+            return $this.trigger('animsition.inDone');
+          }
         });
     },
 
