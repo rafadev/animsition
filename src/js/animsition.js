@@ -170,11 +170,12 @@
 
   };
 
-  $.fn.animateCallback = function(callback){
+  $.fn.animsitionCallback = function(callback){
     var end = 'animationend webkitAnimationEnd mozAnimationEnd oAnimationEnd MSAnimationEnd';
     return this.each(function() {
-      $(this).bind(end, function(){
-        $(this).unbind(end);
+      var $this = $(this);
+      $this.bind(end, function(){
+        $this.unbind(end);
         return callback.call(this);
       });
     });
