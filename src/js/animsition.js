@@ -28,6 +28,9 @@
         loading               :    true,
         loadingParentElement  :   'body', //animsition wrapper element
         loadingClass          :   'animsition-loading',
+        timeout               :   true,
+        timeoutCountdown      :   6.0, // => 6.0s
+        timeoutFunction       :   function(){},
         transition            :   function(url){ return window.location.href = url; },
         unSupportCss          : [
                                   'animation-duration',
@@ -54,6 +57,7 @@
       if(options.loading) {
         methods.addLoading.call(this, options);
       }
+      if(options.timeout) methods.setCountdown.call(this, options);
 
       return this.each(function(index){
         var _this = this;
@@ -134,6 +138,7 @@
         inDuration: isInDuration
       }, options);
 
+      if(options.timeout && methods.counts.in.length === 0) methods.clearCountdown.call(_this);
       if(options.loading) methods.removeLoading.call(_this);
 
       return $this
