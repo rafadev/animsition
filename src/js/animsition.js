@@ -133,7 +133,7 @@
       return data;
     },
 
-    pageIn: function(){
+    in: function(){
       var _this = this;
       var $this = $(this);
       var options = $this.data(namespace).options;
@@ -145,12 +145,6 @@
       if(options.loading) {
         methods.removeLoading.call(_this);
       }
-
-      methods.pageInBasic.call(_this,inClass,inDuration);
-    },
-
-    pageInBasic: function(inClass,inDuration){
-      var $this = $(this);
 
       $this
         .trigger('animsition.start')
