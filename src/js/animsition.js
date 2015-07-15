@@ -26,8 +26,9 @@
         linkElement           :   '.animsition-link',
         // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
         loading               :    true,
-        loadingParentElement  :   'body', //animsition wrapper element
         loadingClass          :   'animsition-loading',
+        loadingWrapClass      :   'animsition-wrap',
+        loadingInnerHtml      :   '', // e.g => '<img src="loading.svg" />'
         timeout               :   true,
         timeoutCountdown      :   6.0, // => 6.0s
         timeoutFunction       :   function(){},
@@ -54,9 +55,6 @@
         return methods.destroy.call( this );
       };
 
-      if(options.loading) {
-        methods.addLoading.call(this, options);
-      }
       if(options.timeout) methods.setCountdown.call(this, options);
 
       return this.each(function(index){
@@ -68,6 +66,8 @@
         if (!data) {
           options = $.extend({}, options);
           $this.data(namespace, { options: options });
+
+          if(options.loading) methods.addLoading.call(_this);
 
           methods.counts.init.push(index);
 
@@ -92,15 +92,22 @@
       }); // end each
     },
 
-    addLoading: function(options){
-      $(options.loadingParentElement).append('<div class="'+options.loadingClass+'"></div>');
+    addLoading: function(){
+      var $this = $(this);
+      var options = $this.data(namespace).options;
+      var loadingWrapper = '<div class="' + options.loadingWrapClass + '"></div>';
+      var loading = '<div class="'+options.loadingClass+'">'+ options.loadingInnerHtml +'</div>';
+      $this.wrap(loadingWrapper);
+      var $loadingTarget = $this.parent('.' + options.loadingWrapClass);
+      return $loadingTarget.append(loading);
     },
 
     removeLoading: function(){
-      var $this     = $(this);
-      var options   = $this.data(namespace).options;
-      var $loading  = $(options.loadingParentElement).children("."+options.loadingClass);
-      $loading.fadeOut().remove();
+      var $this = $(this);
+      var options = $this.data(namespace).options;
+      var $loading = $this.siblings('.' + options.loadingClass);
+      $loading.remove();
+      return $this.unwrap();
     },
 
     supportCheck: function(options){
