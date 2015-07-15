@@ -28,10 +28,14 @@
         loading               :    true,
         loadingParentElement  :   'body', //animsition wrapper element
         loadingClass          :   'animsition-loading',
-        unSupportCss          : [ 'animation-duration',
-                                  '-webkit-animation-duration',
-                                  '-o-animation-duration']
         transition            :   function(url){ return window.location.href = url; },
+        unSupportCss          : [
+                                  'animation-duration',
+                                  '-webkit-animation-duration',
+                                  '-o-animation-duration'
+                                ]
+        //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+        //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
       }, options);
 
       // Remove the "Animsition" in a browser
@@ -45,13 +49,13 @@
         }
         console.log('Animsition does not support this browser.');
         return methods.destroy.call( this );
-      }
+      };
 
       if(options.loading) {
         methods.addLoading.call(this, options);
       }
 
-      return this.each(function(){
+      return this.each(function(index){
         var _this = this;
         var $this = $(this);
         var $window = $(window);
@@ -59,11 +63,9 @@
 
         if (!data) {
           options = $.extend({}, options);
+          $this.data(namespace, { options: options });
 
-          $this.data(namespace, {
-            options: options
-          });
-          methods.counts.init.push(i);
+          methods.counts.init.push(index);
 
           // Firefox back button issue #4
           $window.on('unload.' + namespace, function() { });
@@ -76,12 +78,12 @@
             // middle mouse button issue #24
             // if(middle mouse button || command key || shift key || win control key)
             if (event.which === 2 || event.metaKey || event.shiftKey || navigator.platform.toUpperCase().indexOf('WIN') !== -1 && event.ctrlKey) {
-              window.open(url, '_blank');
+              return window.open(url, '_blank');
             } else {
-              methods.out.call(_this,$self,url);
+              return methods.out.call(_this,$self,url);
             }
-
           });
+
         }
       }); // end each
     },
@@ -211,7 +213,7 @@
       });
     }
 
-  };
+  }; // methods
 
   $.fn.animsitionCallback = function(callback){
     var end = 'animationend webkitAnimationEnd mozAnimationEnd oAnimationEnd MSAnimationEnd';
