@@ -1,8 +1,10 @@
 {
   "name": "animsition",
-  "version": "3.5.2",
+  "version": "4.0.0-alpha.1",
   "author": "blivesta",
   "description": "A simple and easy jQuery plugin for CSS animated page transitions.",
+  "main": "dist/js/jquery.animsition.js",
+  "style": "dist/css/animsitin.css",
   "keywords": [
     "css3",
     "js",
