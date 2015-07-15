@@ -57,10 +57,6 @@
             options: options
           });
 
-          $window.on('load.' + namespace + ' pageshow.' + namespace, function() {
-            methods.pageIn.call( _this );
-          });
-
           // Firefox back button issue #4
           $window.on('unload.' + namespace, function() { });
 
@@ -80,10 +76,6 @@
           });
         }
       }); // end each
-    },
-
-    addOverlay: function(options){
-      $(options.overlayParentElement).prepend('<div class="'+options.overlayClass+'"></div>');
     },
 
     addLoading: function(options){
