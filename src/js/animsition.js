@@ -203,6 +203,21 @@
         });
     },
 
+    setCountdown: function(options){
+      var _this = this;
+      var $this = $(this);
+      methods.counts.timer;
+      return methods.counts.timer = setTimeout(function(){
+        $this.trigger('animsition.timeout');
+        options.timeoutFunction();
+        return methods.clearCountdown.call(_this);
+      }, options.timeoutCountdown * 1000);
+    },
+
+    clearCountdown: function(){
+      return clearTimeout(methods.counts.timer);
+    },
+
     destroy: function(){
       return this.each(function(){
         var $this = $(this);
