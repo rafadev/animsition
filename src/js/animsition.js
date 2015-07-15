@@ -15,8 +15,8 @@
       options = $.extend({
         inClass               :   'fade-in',
         outClass              :   'fade-out',
-        inDuration            :    1500,
-        outDuration           :    800,
+        inDuration            :    1.0, // => 1.0s
+        outDuration           :    1.0, // => 1.0s
         linkElement           :   '.animsition-link',
         // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
         loading               :    true,
@@ -149,7 +149,7 @@
 
       $this
         .trigger('animsition.start')
-        .css({ 'animation-duration' : (inDuration / 1000) + 's' })
+        .css({ 'animation-duration' : inDuration + 's' })
         .addClass(inClass)
         .animateCallback(function(){
           $this
@@ -179,7 +179,7 @@
       var $this = $(this);
 
       $this
-        .css({ 'animation-duration' : (outDuration / 1000) + 's' })
+        .css({ 'animation-duration' : outDuration + 's' })
         .addClass(outClass)
         .animateCallback(function(){
           location.href = url
