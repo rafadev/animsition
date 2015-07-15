@@ -152,24 +152,40 @@
         });
     },
 
-    out: function($self,url){
+    out: function($self,url,options){
       var _this = this;
       var $this = $(this);
-      var options = $this.data(namespace).options;
-      var selfOutClass = $self.data('animsition-out');
-      var thisOutClass = $this.data('animsition-out');
+      var data = $this.data(namespace);
+
+      if(!data) return;
+
+      var selfOutClass = $self.data('animsition-out-class');
+      var thisOutClass = $this.data('animsition-out-class');
       var selfOutDuration = $self.data('animsition-out-duration');
       var thisOutDuration = $this.data('animsition-out-duration');
-      var isOutClass = selfOutClass ? selfOutClass : thisOutClass;
-      var isOutDuration = selfOutDuration ? selfOutDuration : thisOutDuration;
-      var outClass = methods.animationCheck.call(_this,isOutClass,true,false);
-      var outDuration = methods.animationCheck.call(_this, isOutDuration,false,false);
+      var isOutClass = selfOutClass !== undefined ? selfOutClass : thisOutClass;
+      var isOutDuration = selfOutDuration !== undefined ? selfOutDuration : thisOutDuration;
 
-      $this
-        .css({ 'animation-duration' : outDuration + 's' })
-        .addClass(outClass)
-        .animateCallback(function(){
-          location.href = url
+      options = $.extend(data.options,{
+        outClass: isOutClass,
+        outDuration: isOutDuration
+      }, options);
+
+      return $this
+        .trigger('animsition.outStart')
+        .css({
+          'animation-duration' : options.outDuration + 's',
+        })
+        .addClass(options.outClass)
+        .animsitionCallback(function(){
+          methods.counts.out.push(options.outClass);
+          $this.trigger('animsition.outEnd');
+
+          // last callback
+          if(methods.counts.in.length === methods.counts.out.length ){
+            $this.trigger('animsition.outDone');
+            return options.transition(url);
+          }
         });
     },
 
