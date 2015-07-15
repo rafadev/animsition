@@ -31,6 +31,7 @@
         unSupportCss          : [ 'animation-duration',
                                   '-webkit-animation-duration',
                                   '-o-animation-duration']
+        transition            :   function(url){ return window.location.href = url; },
       }, options);
 
       // Remove the "Animsition" in a browser
