@@ -75,7 +75,7 @@
             if (event.which === 2 || event.metaKey || event.shiftKey || navigator.platform.toUpperCase().indexOf('WIN') !== -1 && event.ctrlKey) {
               window.open(url, '_blank');
             } else {
-              methods.pageOut.call(_this,$self,url);
+              methods.out.call(_this,$self,url);
             }
 
           });
@@ -158,7 +158,7 @@
         });
     },
 
-    pageOut: function($self,url){
+    out: function($self,url){
       var _this = this;
       var $this = $(this);
       var options = $this.data(namespace).options;
@@ -170,12 +170,6 @@
       var isOutDuration = selfOutDuration ? selfOutDuration : thisOutDuration;
       var outClass = methods.animationCheck.call(_this,isOutClass,true,false);
       var outDuration = methods.animationCheck.call(_this, isOutDuration,false,false);
-
-      methods.pageOutBasic.call(_this,outClass,outDuration,url);
-    },
-
-    pageOutBasic: function(outClass,outDuration,url){
-      var $this = $(this);
 
       $this
         .css({ 'animation-duration' : outDuration + 's' })
