@@ -24,10 +24,7 @@
         loadingClass          :   'animsition-loading',
         unSupportCss          : [ 'animation-duration',
                                   '-webkit-animation-duration',
-                                  '-o-animation-duration'],
-        overlay               :   false,
-        overlayClass          :   'animsition-overlay-slide',
-        overlayParentElement  :   'body'
+                                  '-o-animation-duration']
       }, options);
 
       // Remove the "Animsition" in a browser
@@ -41,11 +38,6 @@
         }
         console.log('Animsition does not support this browser.');
         return methods.destroy.call( this );
-      }
-
-      var overlayMode = methods.optionCheck.call(this, options);
-      if(overlayMode) {
-        methods.addOverlay.call(this, options);
       }
 
       if(options.loading) {
@@ -123,17 +115,6 @@
       return support;
     },
 
-    optionCheck: function(options){
-      var $this = $(this);
-      var overlayMode;
-      if(options.overlay || $this.data('animsition-overlay')){
-        overlayMode = true
-      } else {
-        overlayMode = false
-      }
-      return overlayMode;
-    },
-
     animationCheck : function(data, stateClass, stateIn){
       var $this = $(this);
       var options = $this.data(namespace).options;
@@ -163,17 +144,12 @@
       var thisInClass = $this.data('animsition-in');
       var inDuration = methods.animationCheck.call(_this,thisInDuration,false,true);
       var inClass = methods.animationCheck.call(_this,thisInClass,true,true);
-      var overlayMode = methods.optionCheck.call(_this, options);
 
       if(options.loading) {
         methods.removeLoading.call(_this);
       }
 
-      if(overlayMode) {
-        methods.pageInOverlay.call(_this,inClass,inDuration);
-      } else {
-        methods.pageInBasic.call(_this,inClass,inDuration);
-      }
+      methods.pageInBasic.call(_this,inClass,inDuration);
     },
 
     pageInBasic: function(inClass,inDuration){
@@ -191,23 +167,6 @@
         });
     },
 
-    pageInOverlay: function(inClass,inDuration){
-      var $this = $(this);
-      var options = $this.data(namespace).options;
-
-      $this
-        .trigger('animsition.start')
-        .css({ 'opacity' : 1 });
-
-      $(options.overlayParentElement)
-        .children('.' + options.overlayClass)
-        .css({ 'animation-duration' : (inDuration / 1000) + 's' })
-        .addClass(inClass)
-        .animateCallback(function(){
-          $this.trigger('animsition.end');
-        });
-    },
-
     pageOut: function($self,url){
       var _this = this;
       var $this = $(this);
@@ -220,13 +179,8 @@
       var isOutDuration = selfOutDuration ? selfOutDuration : thisOutDuration;
       var outClass = methods.animationCheck.call(_this,isOutClass,true,false);
       var outDuration = methods.animationCheck.call(_this, isOutDuration,false,false);
-      var overlayMode = methods.optionCheck.call(_this, options);
 
-      if(overlayMode) {
-        methods.pageOutOverlay.call(_this,outClass,outDuration,url);
-      } else {
-        methods.pageOutBasic.call(_this,outClass,outDuration,url);
-      }
+      methods.pageOutBasic.call(_this,outClass,outDuration,url);
     },
 
     pageOutBasic: function(outClass,outDuration,url){
@@ -234,22 +188,6 @@
 
       $this
         .css({ 'animation-duration' : (outDuration / 1000) + 's' })
-        .addClass(outClass)
-        .animateCallback(function(){
-          location.href = url
-        });
-    },
-
-    pageOutOverlay: function(outClass,outDuration,url){
-      var _this = this;
-      var $this = $(this);
-      var options = $this.data(namespace).options;
-      var thisInClass = $this.data('animsition-in');
-      var inClass = methods.animationCheck.call(_this,thisInClass,true,true);
-
-      $(options.overlayParentElement).children('.' + options.overlayClass)
-        .css({ 'animation-duration' : (outDuration / 1000) + 's' })
-        .removeClass(inClass)
         .addClass(outClass)
         .animateCallback(function(){
           location.href = url
