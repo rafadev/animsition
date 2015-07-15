@@ -113,14 +113,13 @@
     supportCheck: function(options){
       var $this = $(this);
       var props = options.unSupportCss;
-      var propsNum = props.length;
+      var len = props.length;
       var support  = false;
 
-      if (propsNum === 0) {
-        support = true;
-      }
-      for (var i = 0; i < propsNum; i++) {
-        if (typeof $this.css(props[i]) === "string") {
+      if (len === 0) support = true;
+
+      for (var i = 0; i < len; i++) {
+        if (typeof $this.css(props[i]) === 'string') {
           support = true;
           break;
         }
