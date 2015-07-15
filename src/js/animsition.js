@@ -21,6 +21,8 @@
         outClass              :   'fade-out',
         inDuration            :    1.0, // => 1.0s
         outDuration           :    1.0, // => 1.0s
+        inDelay               :    0,   // => 0s
+        outDelay              :    0,   // => 0s
         linkElement           :   '.animsition-link',
         // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
         loading               :    true,
@@ -120,10 +122,12 @@
       if(!data) return;
 
       var isInClass = $this.data('animsition-in-class');
+      var isInDelay = $this.data('animsition-in-delay');
       var isInDuration = $this.data('animsition-in-duration');
 
       options = $.extend(data.options,{
         inClass: isInClass,
+        inDelay: isInDelay,
         inDuration: isInDuration
       }, options);
 
@@ -133,6 +137,7 @@
         .trigger('animsition.inStart')
         .css({
           'animation-duration' : options.inDuration + 's',
+          'animation-delay' : options.inDelay + 's'
         })
         .addClass(options.inClass)
         .animsitionCallback(function(){
@@ -140,6 +145,7 @@
             .removeClass(options.inClass)
             .css({
               'opacity' : 1,
+              'animation-delay' : '0s',
             })
             .trigger('animsition.inEnd');
 
@@ -161,13 +167,17 @@
 
       var selfOutClass = $self.data('animsition-out-class');
       var thisOutClass = $this.data('animsition-out-class');
+      var selfOutDelay = $self.data('animsition-out-delay');
+      var thisOutDelay = $this.data('animsition-out-delay');
       var selfOutDuration = $self.data('animsition-out-duration');
       var thisOutDuration = $this.data('animsition-out-duration');
       var isOutClass = selfOutClass !== undefined ? selfOutClass : thisOutClass;
+      var isOutDelay = selfOutDelay !== undefined ? selfOutDelay : thisOutDelay;
       var isOutDuration = selfOutDuration !== undefined ? selfOutDuration : thisOutDuration;
 
       options = $.extend(data.options,{
         outClass: isOutClass,
+        outDelay: isOutDelay,
         outDuration: isOutDuration
       }, options);
 
@@ -175,6 +185,7 @@
         .trigger('animsition.outStart')
         .css({
           'animation-duration' : options.outDuration + 's',
+          'animation-delay' : options.outDelay + 's'
         })
         .addClass(options.outClass)
         .animsitionCallback(function(){
