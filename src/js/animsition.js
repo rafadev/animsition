@@ -11,7 +11,11 @@
   'use strict';
   var namespace = 'animsition';
   var methods = {
+    counts: {},
     init: function(options){
+      methods.counts.init = [];
+      methods.counts.in = [];
+      methods.counts.out = [];
       options = $.extend({
         inClass               :   'fade-in',
         outClass              :   'fade-out',
@@ -56,6 +60,7 @@
           $this.data(namespace, {
             options: options
           });
+          methods.counts.init.push(i);
 
           // Firefox back button issue #4
           $window.on('unload.' + namespace, function() { });
