@@ -8,7 +8,7 @@
     factory(jQuery);
   }
 }(function ($) {
-  "use strict";
+  'use strict';
   var namespace = 'animsition';
   var methods = {
     init: function(options){
@@ -39,7 +39,7 @@
           window.console = {};
           window.console.log = function(str){return str};
         }
-        console.log("Animsition does not support this browser.");
+        console.log('Animsition does not support this browser.');
         return methods.destroy.call( this );
       }
 
@@ -65,22 +65,22 @@
             options: options
           });
 
-          $window.on("load." + namespace + " pageshow." + namespace, function() {
+          $window.on('load.' + namespace + ' pageshow.' + namespace, function() {
             methods.pageIn.call( _this );
           });
 
           // Firefox back button issue #4
-          $window.on("unload." + namespace, function() { });
+          $window.on('unload.' + namespace, function() { });
 
-          $(options.linkElement).on("click." + namespace, function(event) {
+          $(options.linkElement).on('click.' + namespace, function(event) {
             event.preventDefault();
             var $self = $(this);
             var url = $self.attr('href');
 
             // middle mouse button issue #24
             // if(middle mouse button || command key || shift key || win control key)
-            if (event.which === 2 || event.metaKey || event.shiftKey || navigator.platform.toUpperCase().indexOf("WIN") !== -1 && event.ctrlKey) {
-              window.open(url, "_blank");
+            if (event.which === 2 || event.metaKey || event.shiftKey || navigator.platform.toUpperCase().indexOf('WIN') !== -1 && event.ctrlKey) {
+              window.open(url, '_blank');
             } else {
               methods.pageOut.call(_this,$self,url);
             }
@@ -181,12 +181,12 @@
 
       $this
         .trigger('animsition.start')
-        .css({ "animation-duration" : (inDuration / 1000) + "s" })
+        .css({ 'animation-duration' : (inDuration / 1000) + 's' })
         .addClass(inClass)
         .animateCallback(function(){
           $this
             .removeClass(inClass)
-            .css({ "opacity" : 1 })
+            .css({ 'opacity' : 1 })
             .trigger('animsition.end');
         });
     },
@@ -197,11 +197,11 @@
 
       $this
         .trigger('animsition.start')
-        .css({ "opacity" : 1 });
+        .css({ 'opacity' : 1 });
 
       $(options.overlayParentElement)
         .children('.' + options.overlayClass)
-        .css({ "animation-duration" : (inDuration / 1000) + "s" })
+        .css({ 'animation-duration' : (inDuration / 1000) + 's' })
         .addClass(inClass)
         .animateCallback(function(){
           $this.trigger('animsition.end');
@@ -233,7 +233,7 @@
       var $this = $(this);
 
       $this
-        .css({ "animation-duration" : (outDuration / 1000) + "s" })
+        .css({ 'animation-duration' : (outDuration / 1000) + 's' })
         .addClass(outClass)
         .animateCallback(function(){
           location.href = url
@@ -248,7 +248,7 @@
       var inClass = methods.animationCheck.call(_this,thisInClass,true,true);
 
       $(options.overlayParentElement).children('.' + options.overlayClass)
-        .css({ "animation-duration" : (outDuration / 1000) + "s" })
+        .css({ 'animation-duration' : (outDuration / 1000) + 's' })
         .removeClass(inClass)
         .addClass(outClass)
         .animateCallback(function(){
@@ -269,7 +269,7 @@
   };
 
   $.fn.animateCallback = function(callback){
-    var end = "animationend webkitAnimationEnd mozAnimationEnd oAnimationEnd MSAnimationEnd";
+    var end = 'animationend webkitAnimationEnd mozAnimationEnd oAnimationEnd MSAnimationEnd';
     return this.each(function() {
       $(this).bind(end, function(){
         $(this).unbind(end);
