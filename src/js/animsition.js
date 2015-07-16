@@ -49,11 +49,11 @@
         // If do not have a console object to object window
         if (!('console' in window)) {
           window.console = {};
-          window.console.log = function(str){return str};
+          window.console.log = function(str){ return str; };
         }
         console.log('Animsition does not support this browser.');
         return methods.destroy.call( this );
-      };
+      }
 
       if(options.timeout) methods.setCountdown.call(this, options);
 
@@ -173,7 +173,6 @@
     },
 
     out: function($self,url,options){
-      var _this = this;
       var $this = $(this);
       var data = $this.data(namespace);
 
