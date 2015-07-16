@@ -48,6 +48,7 @@ Please check that everything works before opening a pull-request.
 - [@vburlak](https://github.com/vburlak)
 - [@wpexplorer](https://github.com/wpexplorer)
 - [@armbull](https://github.com/armbull)
+- [@kkirsche](https://github.com/kkirsche)
 
 ## License
 Released under the [MIT](https://github.com/blivesta/animsition/blob/master/LICENSE.md) license.
