@@ -44,9 +44,9 @@ gulp.task('css', function () {
 
 gulp.task('js', function(){
   return gulp.src(dirs.src + '/js/' + pkg.name + '.js')
-    .pipe(header(banner, { pkg:pkg }))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
+    .pipe(header(banner, { pkg:pkg }))
     .pipe(rename({prefix: 'jquery.'}))
     .pipe(gulp.dest(dirs.dist + '/js'))
     .pipe(uglify())
