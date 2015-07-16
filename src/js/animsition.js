@@ -32,7 +32,7 @@
         timeout               :   true,
         timeoutCountdown      :   6.0, // => 6.0s
         timeoutFunction       :   function(){},
-        transition            :   function(url){ return window.location.href = url; },
+        transition            :   function(url){ window.location.href = url; },
         unSupportCss          : [
                                   'animation-duration',
                                   '-webkit-animation-duration',
