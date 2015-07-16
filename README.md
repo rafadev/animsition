@@ -15,23 +15,13 @@ http://git.blivesta.com/animsition/
 
 ## Development
 
-Install : `nodejs` `npm` `grunt`
+Install : `nodejs` `npm` `gulp`
 
 ```bash
 $ git clone https://github.com/blivesta/animsition.git
 $ cd animsition
 $ git checkout -b patch-1
-$ npm install && grunt build && grunt
-```
-
-Build
-```bash
-$ grunt build
-```
-
-Watch & Connect
-```bash
-$ grunt
+$ gulp
 ```
 
 ## CDN
