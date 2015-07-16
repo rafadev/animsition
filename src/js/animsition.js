@@ -216,11 +216,11 @@
     setCountdown: function(options){
       var _this = this;
       var $this = $(this);
-      methods.counts.timer;
-      return methods.counts.timer = setTimeout(function(){
+      methods.counts.timer = [];
+      methods.counts.timer = setTimeout(function(){
         $this.trigger('animsition.timeout');
-        options.timeoutFunction();
-        return methods.clearCountdown.call(_this);
+         methods.clearCountdown.call(_this);
+         return options.timeoutFunction();
       }, options.timeoutCountdown * 1000);
     },
 
