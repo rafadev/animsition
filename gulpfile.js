@@ -14,12 +14,11 @@ var uglify = require('gulp-uglify');
 
 var banner = [
 '/*!',
-' * <%= pkg.name %>',
+' * <%= pkg.name %> v<%= pkg.version %>',
 ' * <%= pkg.description %>',
-' * Version <%= pkg.version %>',
 ' * <%= pkg.homepage %>',
-' * Author : <%= pkg.author %>',
 ' * License : <%= pkg.license %>',
+' * Author : <%= pkg.author %>',
 ' */',
 ''].join('\n');
 
