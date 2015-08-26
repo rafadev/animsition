@@ -191,7 +191,7 @@
         .trigger('animsition.start')
         .css({ 'animation-duration' : (inDuration / 1000) + 's' })
         .addClass(inClass)
-        .animateCallback(function(){
+        .animateCallback('end', function(){
           $this
             .removeClass(inClass)
             .css({ 'opacity' : 1 })
@@ -211,7 +211,7 @@
         .children('.' + options.overlayClass)
         .css({ 'animation-duration' : (inDuration / 1000) + 's' })
         .addClass(inClass)
-        .animateCallback(function(){
+        .animateCallback('end', function(){
           $this.trigger('animsition.end');
         });
     },
@@ -243,7 +243,7 @@
       $this
         .css({ 'animation-duration' : (outDuration / 1000) + 's' })
         .addClass(outClass)
-        .animateCallback(function(){
+        .animateCallback('end', function(){
           location.href = url;
         });
     },
@@ -259,7 +259,7 @@
         .css({ 'animation-duration' : (outDuration / 1000) + 's' })
         .removeClass(inClass)
         .addClass(outClass)
-        .animateCallback(function(){
+        .animateCallback('end', function(){
           location.href = url;
         });
     },
@@ -276,11 +276,20 @@
 
   };
 
-  $.fn.animateCallback = function(callback){
-    var end = 'animationend webkitAnimationEnd mozAnimationEnd oAnimationEnd MSAnimationEnd';
+  $.fn.animateCallback = function(animateEvents, callback){
+    var start = 'animationstart webkitAnimationStart oAnimationStart';
+    var end = 'animationend webkitAnimationEnd oAnimationEnd';
+
+    if(animateEvents === 'start'){
+      animateEvents = start;
+    } else {
+      animateEvents = end;
+    }
+
     return this.each(function() {
-      $(this).bind(end, function(){
-        $(this).unbind(end);
+      var $this = $(this);
+      $this.on(animateEvents, function(){
+        $this.off(animateEvents);
         return callback.call(this);
       });
     });
