@@ -230,6 +230,8 @@
       var outDuration = methods.animationCheck.call(_this, isOutDuration,false,false);
       var overlayMode = methods.optionCheck.call(_this, options);
 
+      $this.trigger('animsition.pageOut');
+
       if(overlayMode) {
         methods.pageOutOverlay.call(_this,outClass,outDuration,url);
       } else {
